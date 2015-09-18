@@ -1,0 +1,17 @@
+
+# docker-compose snippet for puffin
+puffin:
+  build: ./puffin
+  dockerfile: Dockerfile.frombase
+  command: nodemon server.js
+  environment:
+   - DEBUG_LEVEL=debug
+   - NODE_ENV=local_docker
+   - LOG_STYE=default
+  ports:
+   - "9080:9080"
+  volumes:
+   - ./puffin:/pufftml/puffin
+  links:
+   - redis 
+#

@@ -1,0 +1,23 @@
+# Pull base image.
+FROM nodesource/trusty:0.12.4
+
+# Add all remaining files last to delay
+# cache invalidation
+#
+# NOTE: See .dockerignore
+
+# Create working directory.
+ADD . /src
+#COPY local_module_cache /src/node_modules
+
+# Define working directory.
+RUN cd /src; npm install
+
+ENV NODE_ENV=production
+ENV DEBUG_LEVEL=debug
+
+WORKDIR /src
+EXPOSE 8081
+
+# Define default command.
+#CMD ["npm", "start"]
