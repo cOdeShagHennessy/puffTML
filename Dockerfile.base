@@ -62,6 +62,14 @@ WORKDIR $DEST
 ADD ./$SERVICE $DEST 
 
 
+# Nanostack for ns_rethinkmq
+# Microservices use local dependency to `../nanos/ns_rethinkmq so we put it at their expected path
+ENV NSTACK ns_rethinkmq
+ENV DEST /$CHASM/nanos/ns_rethinkmq
+WORKDIR $DEST
+
+ADD ./nanos/$NSTACK $DEST
+
 # <Insert nanostacks configuration above this>
 
 # Just exit if someone tries to run base image

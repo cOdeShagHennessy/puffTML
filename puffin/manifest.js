@@ -31,7 +31,6 @@ module.exports = function (Config) {
                 info: {
                     title: 'pufftml puffin API',
                     description: 'Container for microlib'
-
                 }
             },
             './apis/puffapi': [{
@@ -42,39 +41,45 @@ module.exports = function (Config) {
 			//<insert new microapi above this line>
 
             // microlibs
-			'./libs/puffque': [{
-				//MicroLibrary for It does alot
-				//exposing method questly
-			}],
-			'./libs/pufferye': [{
-				//MicroLibrary for Puffs up about nada
-				//exposing method buff
-				//sample call: request.server.plugins['pufferye'].buff({[object Object],[object Object]'}, function (error) { });
-			}],
-			'./libs/puffelhuff': [{
-				//MicroLibrary for Huffs and puffs
-				//exposing method huff
-				//sample call: request.server.plugins['puffelhuff'].huff({[{"name":"huffid","type":"string","description":"unique huff","defValue":"00000000000"},{"name":"huffName","type":"string","description":"name of the huff","defValue":"hamply"}]'}, function (error) { });
-            }],
-			'./libs/puff2': [{
-				//MicroLibrary for Laksdjfladf
-				//exposing method huff2
-				//sample call: request.server.plugins['puff2'].huff2({[object Object]}, function (error) { });
-			}],
 			'./libs/autopuff': [{
 				//MicroLibrary for Tests puff tests
 				//exposing method auto
 				//sample call: request.server.plugins['autopuff'].auto({[object Object],[object Object],[object Object]}, function (error) { });
 			}],
-			'./libs/try1': [{
-				//MicroLibrary for It does alot
-				//exposing method doittomeonemoretime
-				//sample call: request.server.plugins['try1'].doittomeonemoretime({...libData}, function (error) { });
+			'./libs/rethinkmqpublisher': [{
+				//MicroLibrary for Pushlishes to rethink mq
+				//exposing method publish
+				//sample call: request.server.plugins['rethinkmqpublisher'].publish({...libData}, function (reply,error) { });
+                options: {
+                    exchangeName: Config.get("rethinkMQ").exchangeName,
+                    exchangeType: Config.get("rethinkMQ").exchangeType,
+                    mqHost:      Config.get("rethinkMQ").mqHost
+                }
+//                exchangeName: Config.get("rethinkMQ.exchangeName"),
+//                exchangeType: Config.get("rethinkMQ.exchangeType"),
+//                mqHost: Config.get("rethinkMQ.mqHost")
 			}],
-			'./libs/try2': [{
-				//MicroLibrary for Try this again
-				//exposing method likemenow
-				//sample call: request.server.plugins['try2'].likemenow({...libData}, function (reply,error) { });
+			'./libs/testmqlib': [{
+                options: {
+                    exchangeName: Config.get("rethinkMQ").exchangeName,
+                    exchangeType: Config.get("rethinkMQ").exchangeType,
+                    mqHost:      Config.get("rethinkMQ").mqHost
+                }
+				//MicroLibrary for Tests lib scaffolding
+				//exposing method callme
+				//sample call: request.server.plugins['testmqlib'].callme({...libData}, function (reply,error) { });
+			}],
+			'./libs/thisworks': [{
+                options: {
+                    exchangeName: Config.get("rethinkMQ").exchangeName,
+                    exchangeType: Config.get("rethinkMQ").exchangeType,
+                    mqHost:      Config.get("rethinkMQ").mqHost,
+                    queueName:"rethink.q",
+                    queueKey:"tootomq"
+                }
+				//MicroLibrary for Works right away
+				//exposing method iknewitwould
+				//sample call: request.server.plugins['thisworks'].iknewitwould({...libData}, function (reply,error) { });
 			}],
 			//<insert new microlib above this line>
         }

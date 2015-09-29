@@ -41,6 +41,7 @@
     "joi": "^6.4.1",
     "microstack": "file:../microstack",
     "mkdirp": "^0.5.1",
+    "ns_rethinkmq": "file:../nanos/ns_rethinkmq",
     "rekuire": "^0.1.9",
     "rethinkdb": "^2.1.1",
     "tracer": "^0.7.4",

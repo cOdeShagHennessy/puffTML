@@ -52,7 +52,6 @@ Composer(function (err, server) {
         handler: function (request, reply) {
           reply.redirect('/docs/ui');
 
-
 //            r.table('todos').run(conn, function (err, cursor) {
 //                cursor.each(console.log);
 //            });
@@ -65,6 +64,7 @@ Composer(function (err, server) {
             var pathBase = require('path').basename(__dirname);
             server.log('starting sever', server.info.uri);
             Logger.info('loading %s [%s]: at %s', 'microservice', colors.green(pathBase), server.info.uri);
+            Logger.info('server config %s', JSON.stringify(server.settings.app));
         });
     }
     module.exports = server;

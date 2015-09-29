@@ -27,22 +27,22 @@ module.exports = {
     handler: function (request, reply) {
         Logger.info("request %s %s", request.method, request.path, request.params, request.query);
         //
-        var r = request.server.plugins['hapi-rethinkdb'].library;
-        // r === this.rethinkdb;
-
-        var conn = request.server.plugins['hapi-rethinkdb'].connection;
-        // conn === this.rethinkdbConn;
-
-        r.db('rethinkdb_ex').table('todos').filter(function(doc){
-            return doc('title').match("^T|t")
-        }).pluck('title').run(conn, function (err, cursor) {
-//                cursor.each(console.log);
-            if (err) throw err;
-            cursor.toArray(function(err, result) {
-                if (err) throw err;
-                console.log(JSON.stringify(result, null, 2));
-            });
-        });
+//        var r = request.server.plugins['hapi-rethinkdb'].library;
+//        // r === this.rethinkdb;
+//
+//        var conn = request.server.plugins['hapi-rethinkdb'].connection;
+//        // conn === this.rethinkdbConn;
+//
+//        r.db('rethinkdb_ex').table('todos').filter(function(doc){
+//            return doc('title').match("^T|t")
+//        }).pluck('title').run(conn, function (err, cursor) {
+////                cursor.each(console.log);
+//            if (err) throw err;
+//            cursor.toArray(function(err, result) {
+//                if (err) throw err;
+//                console.log(JSON.stringify(result, null, 2));
+//            });
+//        });
 
 //        r.db('rethinkdb_ex').table('todos').pluck('title').run(conn, function (err, cursor) {
 ////                cursor.each(console.log);
@@ -54,7 +54,20 @@ module.exports = {
 //        });
         //
 
-        request.server.plugins['puff2'].huff2({dest1:"mydest"}, function (error) { });
+//        var libData = {
+//            created: Date.now(),
+//            name: "automatica",
+//            dirty: false,
+//        };
+//        request.server.plugins['autopuff'].auto(libData, function (error) { });
+//
+//        request.server.plugins['rethinkmqpublisher'].publish({key:"frotomq",message:libData}, function () {
+//            console.log("called back")
+//        });
+//        libData.name = "nottomatica"
+//        request.server.plugins['testmqlib'].callme({key:"tootomq", message:libData}, function () {
+//            console.log("called back")
+//        });
         // Storage
         //    
         var redisClient =request.server.plugins['hapi-redis'].client;

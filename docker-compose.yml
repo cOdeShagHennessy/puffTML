@@ -36,6 +36,21 @@ puffin:
    - ./puffin:/pufftml/puffin
   links:
    - redis
+# docker-compose snippet for puffapp
+puffapp:
+  build: ./puffapp
+  dockerfile: Dockerfile.frombase
+  command: nodemon server.js
+  environment:
+   - DEBUG_LEVEL=debug
+   - NODE_ENV=local_docker
+   - LOG_STYLE=default
+  ports:
+   - 9084:9084
+  volumes:
+   - ./puffapp:/pufftml/puffapp
+  links:
+   - redis
 # <Insert microservice configuration above this>
 
 #TODO: collect redis, rabbitmq or other services support from chasm creation or update file when microservices added

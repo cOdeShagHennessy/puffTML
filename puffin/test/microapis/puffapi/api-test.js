@@ -29,7 +29,7 @@ BDD.describe('puffapi API Test', function () {
             });
         server.register(
             {
-                register: use('libs/puff2')
+                register: use('libs/autopuff')
             }, function (err) {
                 BDD.expect(err).to.not.exist();
             });
