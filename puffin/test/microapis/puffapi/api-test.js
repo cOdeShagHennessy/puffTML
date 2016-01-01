@@ -10,11 +10,19 @@ BDD.describe('puffapi API Test', function () {
     var Hapi = require('hapi');
     var server = new Hapi.Server();
 
-    BDD.before(function (done) {
+//    BDD.before(function (done) {
 
         server.connection({
             port: 3004
         });
+//
+//        server.register(
+//        {
+//            register: require('hapi-rethinkdb'),
+//            options: { url: 'rethinkdb://192.168.59.103:28015/' }
+//        }, function (err) {
+//            BDD.expect(err).to.not.exist();
+//        });
 
         server.register(
             {
@@ -27,20 +35,52 @@ BDD.describe('puffapi API Test', function () {
             }, function (err) {
                 BDD.expect(err).to.not.exist();
             });
+
         server.register(
             {
                 register: use('libs/autopuff')
             }, function (err) {
+
                 BDD.expect(err).to.not.exist();
             });
+        //
+        server.register(
+            {
+                register: use('libs/rethinkmqpublisher'),
+                options: {
+                    exchangeName: Config.get("rethinkMQ").exchangeName,
+                    exchangeType: Config.get("rethinkMQ").exchangeType,
+                    mqHost:      Config.get("rethinkMQ").mqHost
+                }
+            }, function (err) {
+                BDD.expect(err).to.not.exist();
+            });
+
+        server.register(
+            {
+                register: use('libs/thisworks'),
+                options: {
+                    exchangeName: Config.get("rethinkMQ").exchangeName,
+                    exchangeType: Config.get("rethinkMQ").exchangeType,
+                    mqHost:       Config.get("rethinkMQ").mqHost,
+                    queueName:    "rethink.q",
+                    queueKey:     "frotomq",
+                    callback:     function (message) {
+                        console.log("received this: " + JSON.stringify(message));
+                    }
+                }
+            }, function (err) {
+                BDD.expect(err).to.not.exist();
+            });
+        //
         //
         server.register({
             register: require('hapi-redis'),
             options:  {host: Config.get('redisHost')}
         }, function () {
-            done();
+//            done();
         });//
-    });
+//    });
 
     BDD.it('Test puffapi plugin loads from the manifest', function (done) {
         var routes = [];

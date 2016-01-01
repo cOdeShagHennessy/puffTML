@@ -14,7 +14,7 @@ BDD.describe('microstack', function () {
       Logger.test(ns_This);
       BDD.expect(ns_This).to.exist();
       BDD.expect(ns_This.redisHost).to.exist();
-      BDD.expect(ns_This.redisHost).to.equal('192.168.59.103');
+      BDD.expect(ns_This.redisHost).to.equal('192.168.99.100');
       BDD.expect(ns_This.filter).to.equal('default');
       done();
    });
@@ -43,7 +43,7 @@ BDD.describe('microstack', function () {
       Logger.test(ns_This);
       BDD.expect(ns_This).to.exist();
       BDD.expect(ns_This.redisHost).to.exist();
-      BDD.expect(ns_This.redisHost).to.equal('192.168.59.103');
+      BDD.expect(ns_This.redisHost).to.equal('192.168.99.100');
       BDD.expect(ns_This.filter).to.equal('default');
       var ns_That = microStack.nanos('that');
       Logger.test(ns_That);
@@ -79,4 +79,3 @@ BDD.describe('microstack', function () {
    });
 
 });
-

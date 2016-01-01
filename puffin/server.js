@@ -23,13 +23,13 @@ Composer(function (err, server) {
         throw err;
 
     //url: 'rethinkdb://localhost:28015'
-    server.register({
-        register: require('hapi-rethinkdb'),
-        options: { url: 'rethinkdb://192.168.59.103:28015/' }
-    }, function (err) {
-
-        if (err) console.error(err);
-    });
+//    server.register({
+//        register: require('hapi-rethinkdb'),
+//        options: { url: 'rethinkdb://192.168.59.103:28015/' }
+//    }, function (err) {
+//
+//        if (err) console.error(err);
+//    });
     // register this plugin in manifest for some reason cause tests to fail
     // but seems to work fine on server start.
     // registering directly in server.js for now.
@@ -41,7 +41,7 @@ Composer(function (err, server) {
             Logger.debug("redis returned %s", res);
         })
     });
-    
+
 
      /**
       *  Register main index route to redirect to swagger documentation by default
@@ -69,5 +69,3 @@ Composer(function (err, server) {
     }
     module.exports = server;
 });
-
-

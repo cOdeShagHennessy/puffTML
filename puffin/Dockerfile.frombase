@@ -1,26 +1,28 @@
 # Pull base image
-FROM pufftml-base:dev
+#FROM pufftml-base/dev-trusty:0.12.4
+FROM pufftml-base/dev-centos7:4.2.3
+
 
 ENV CHASM pufftml
 ENV SERVICE puffin
 ENV DEST /$CHASM/$SERVICE
 WORKDIR $DEST
 
-# Changes in package.json will invalidate the 
+# Changes in package.json will invalidate the
 # results of npm install
 ADD package.json $DEST/package.json
 RUN cd /$DEST && npm install && \
  rm -rf /tmp/*
 
-# Add gulpfile and other files that should invalidate the 
-# result of gulp pm-cache 
+# Add gulpfile and other files that should invalidate the
+# result of gulp pm-cache
 ADD gulpfile.js $DEST/gulpfile.js
 ADD manifest.js $DEST/manifest.js
 ADD server.js $DEST/server.js
 #RUN gulp pm-cache && \
 # rm -rf /tmp/*
 
-# Place our modules somewhere safe. This avoids problems 
+# Place our modules somewhere safe. This avoids problems
 # when someone mounts a host volume at $DEST with their own
 # module folders
 #RUN mkdir -p /npm/$SERVICE && \
@@ -29,7 +31,7 @@ ADD server.js $DEST/server.js
 # ENV NODE_PATH=/npm/$SERVICE/node_modules:/npm/$SERVICE/local_module_cache
 # ENV NODE_PATH=/npm/$SERVICE/node_modules
 
-# Add all remaining files last to avoid 
+# Add all remaining files last to avoid
 # cache invalidation
 #
 # NOTE: See .dockerignore

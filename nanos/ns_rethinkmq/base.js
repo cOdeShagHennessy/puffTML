@@ -7,9 +7,9 @@
 */
 module.exports.Config = function (environment) {
     return {
-        filter: environment, 
-        exchangeName: "rethink_changes.ex", 
+        filter: environment,
+        exchangeName: "rethink_changes.ex",
         exchangeType: "topic",
-        mqHost: "192.168.59.103", 
+        mqHost: "192.168.99.100",
     }
 };

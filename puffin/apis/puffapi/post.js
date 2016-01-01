@@ -28,6 +28,36 @@ module.exports = {
     },
     handler:     function (request, reply) {
         Logger.info("storing %j at %s", request.payload);
+        //var r = request.server.plugins['hapi-rethinkdb'].library;
+
+        //var conn = request.server.plugins['hapi-rethinkdb'].connection;
+//        r.db('rethinkdb_ex').table('todos').insert(request.payload).run(conn, function (err, cursor) {
+////                cursor.each(console.log);
+//            if (err) throw err;
+//            console.log("post'd to rethink \n"+ JSON.stringify(cursor, null, 2));
+////            cursor.toArray(function(err, result) {
+////                if (err) throw err;
+////                console.log("post'd to rethink \n"+ JSON.stringify(result, null, 2));
+////
+////            });
+//        });
+//        r.db('rethinkdb_ex').table('todos').insert(request.payload, {returnChanges: true}).run(conn, function(error, result) {
+//            if (error) {
+//                handleError(res, error)
+//            }
+//            else if (result.inserted !== 1) {
+//                handleError(res, new Error("Document was not inserted."))
+//            }
+//            else {
+//                console.log("post'd to rethink \n"+ JSON.stringify(result.changes[0].new_val, null, 2));
+//                //res.send(JSON.stringify(result.changes[0].new_val));
+//            }
+////            next();
+//        });
+
+//        request.server.plugins['rethinkmqpublisher'].publish({key:"frotomq",message:request.payload}, function () {
+//            console.log("called back")
+//        });
         // Storage
         //    
         var redisClient = request.server.plugins['hapi-redis'].client;

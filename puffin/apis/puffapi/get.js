@@ -28,11 +28,11 @@ module.exports = {
         Logger.info("request %s %s", request.method, request.path, request.params, request.query);
         //
 //        var r = request.server.plugins['hapi-rethinkdb'].library;
-//        // r === this.rethinkdb;
-//
+        // r === this.rethinkdb;
+
 //        var conn = request.server.plugins['hapi-rethinkdb'].connection;
-//        // conn === this.rethinkdbConn;
-//
+        // conn === this.rethinkdbConn;
+
 //        r.db('rethinkdb_ex').table('todos').filter(function(doc){
 //            return doc('title').match("^T|t")
 //        }).pluck('title').run(conn, function (err, cursor) {
@@ -44,15 +44,16 @@ module.exports = {
 //            });
 //        });
 
-//        r.db('rethinkdb_ex').table('todos').pluck('title').run(conn, function (err, cursor) {
+//        r.db('rethinkdb_ex').table('todos').pluck('sample').run(conn, function (err, cursor) {
 ////                cursor.each(console.log);
 //            if (err) throw err;
 //            cursor.toArray(function(err, result) {
 //                if (err) throw err;
-//                console.log(JSON.stringify(result, null, 2));
+//                console.log("got from rethink \n"+ JSON.stringify(result, null, 2));
+//
 //            });
 //        });
-        //
+
 
 //        var libData = {
 //            created: Date.now(),

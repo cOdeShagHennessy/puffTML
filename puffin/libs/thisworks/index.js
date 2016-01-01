@@ -15,6 +15,7 @@ var optionsSchema = Joi.object({
     queueName: Joi.string().required().description("name of queue"),
     queueKey: Joi.string().required().description("queue key"),
     mqHost: Joi.string().required().description("host ip address"),
+    callback: Joi.func().required()
 }).meta({
     className: "optionSchema",
     description: "Works right away"
@@ -75,8 +76,7 @@ module.exports.register = function (plugin, options, next) {
                     queue.bind(exchange, options.queueKey);
                     queue.subscribe(function (message, headers, deliveryInfo, messageObject) {
                         plugin.log('info', 'something was received ' + JSON.stringify(deliveryInfo)+'\n decoded data -'+JSON.stringify(message));
-                        //Logs.push(message);
-                        //plugin.log('info', 'log added ' + Logs);
+                        options.callback(message.data);
                     });
                 });
             })

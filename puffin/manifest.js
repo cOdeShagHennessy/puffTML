@@ -59,23 +59,26 @@ module.exports = function (Config) {
 //                exchangeType: Config.get("rethinkMQ.exchangeType"),
 //                mqHost: Config.get("rethinkMQ.mqHost")
 			}],
-			'./libs/testmqlib': [{
-                options: {
-                    exchangeName: Config.get("rethinkMQ").exchangeName,
-                    exchangeType: Config.get("rethinkMQ").exchangeType,
-                    mqHost:      Config.get("rethinkMQ").mqHost
-                }
-				//MicroLibrary for Tests lib scaffolding
-				//exposing method callme
-				//sample call: request.server.plugins['testmqlib'].callme({...libData}, function (reply,error) { });
-			}],
+//			'./libs/testmqlib': [{
+//                options: {
+//                    exchangeName: Config.get("rethinkMQ").exchangeName,
+//                    exchangeType: Config.get("rethinkMQ").exchangeType,
+//                    mqHost:      Config.get("rethinkMQ").mqHost
+//                }
+//				//MicroLibrary for Tests lib scaffolding
+//				//exposing method callme
+//				//sample call: request.server.plugins['testmqlib'].callme({...libData}, function (reply,error) { });
+//			}],
 			'./libs/thisworks': [{
                 options: {
                     exchangeName: Config.get("rethinkMQ").exchangeName,
                     exchangeType: Config.get("rethinkMQ").exchangeType,
                     mqHost:      Config.get("rethinkMQ").mqHost,
                     queueName:"rethink.q",
-                    queueKey:"tootomq"
+                    queueKey:"frotomq",
+                    callback: function(message) {
+                        console.log("received this: " +  JSON.stringify(message) );
+                    }
                 }
 				//MicroLibrary for Works right away
 				//exposing method iknewitwould

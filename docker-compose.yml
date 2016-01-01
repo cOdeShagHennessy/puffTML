@@ -2,7 +2,7 @@
 # Docker containers
 #
 # Tuned for development
-# General patterns: 
+# General patterns:
 #  - Set build directory to microservice root
 #  - Set env variable so Confidence loads docker environment
 #  - mount host source code in container so latest source is used
@@ -10,7 +10,7 @@
 #servicename:
 #  build: ./servicename
 #  dockerfile: Dockerfile.frombase
-#  command: nodemon server.js
+#  command: nodemon --legacy-watch server.js
 #  environment:
 #   - NODE_ENV=local_docker
 #   - LOG_STYE=default
@@ -25,7 +25,7 @@
 puffin:
   build: ./puffin
   dockerfile: Dockerfile.frombase
-  command: nodemon server.js
+  command: nodemon --legacy-watch server.js
   environment:
    - DEBUG_LEVEL=debug
    - NODE_ENV=local_docker
@@ -36,21 +36,22 @@ puffin:
    - ./puffin:/pufftml/puffin
   links:
    - redis
+   - rethinkdb
 # docker-compose snippet for puffapp
-puffapp:
-  build: ./puffapp
-  dockerfile: Dockerfile.frombase
-  command: nodemon server.js
-  environment:
-   - DEBUG_LEVEL=debug
-   - NODE_ENV=local_docker
-   - LOG_STYLE=default
-  ports:
-   - 9084:9084
-  volumes:
-   - ./puffapp:/pufftml/puffapp
-  links:
-   - redis
+#puffapp:
+#  build: ./puffapp
+#  dockerfile: Dockerfile.frombase
+#  command: nodemon --legacy-watch server.js
+#  environment:
+#   - DEBUG_LEVEL=debug
+#   - NODE_ENV=local_docker
+#   - LOG_STYLE=default
+#  ports:
+#   - 9084:9084
+#  volumes:
+#   - ./puffapp:/pufftml/puffapp
+#  links:
+#   - redis
 # <Insert microservice configuration above this>
 
 #TODO: collect redis, rabbitmq or other services support from chasm creation or update file when microservices added
@@ -58,8 +59,10 @@ redis:
   image: redis
   ports:
   - "6379:6379"
-  volumes:
-  - /data/redis:/data
+  volumes_from:
+  - redisData
+#  volumes:
+#  - /data/redis:/data
 
 rethinkdb:
   image: rethinkdb
@@ -78,12 +81,17 @@ rtdbData:
     - /data
   command: echo Data Volume for rethinkdb
 
-mq:
-  image: rabbitmq:3.5.4-management
+redisData:
+  image: busybox
+  volumes:
+    - /data/redis
+  command: echo Data Volume for redis
+
+#mq:
+#  image: rabbitmq:3.5.4-management
   # If you need to manually set the hostname, here is how:
   # environment:
   # - RABBITMQ_NODENAME=my-rabbit
-  ports:
-   - "5672:5672"
-   - "15672:15672"
-
+#  ports:
+#   - "5672:5672"
+#   - "15672:15672"

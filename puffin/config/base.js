@@ -19,11 +19,11 @@ module.exports = function (microstack) {
     var baseConfig = {
         projectName: 'pufftml-puffin',
         port:        9080,
-    
+
         // This setting assumes the use of docker to host a redis instance locally
         // This setting can be overridden with overrides or the
         // recommended approach is to replace this with a nanostack component, i.e. ns_Redis
-        redisHost: '192.168.59.103' //cache.redisHost//
+        redisHost: '192.168.99.100' //cache.redisHost//
     };
     baseConfig.rethinkMQ = rethinkMQ;
 

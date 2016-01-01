@@ -15,7 +15,7 @@ module.exports.Config = function (environment) {
             },
             local_docker: {
                 nanostack: {
-                    mqHost: '192.168.59.103',
+                    mqHost: '192.168.99.100',
                 }
             },
             production: {
