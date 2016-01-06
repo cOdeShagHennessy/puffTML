@@ -36,21 +36,6 @@ puffin:
    - ./puffin:/pufftml/puffin
   links:
    - redis
-# docker-compose snippet for puffapp
-puffapp:
-  build: ./puffapp
-  dockerfile: Dockerfile.frombase
-  command: nodemon server.js
-  environment:
-   - DEBUG_LEVEL=debug
-   - NODE_ENV=local_docker
-   - LOG_STYLE=default
-  ports:
-   - 9084:9084
-  volumes:
-   - ./puffapp:/pufftml/puffapp
-  links:
-   - redis
 # <Insert microservice configuration above this>
 
 #TODO: collect redis, rabbitmq or other services support from chasm creation or update file when microservices added
@@ -78,12 +63,12 @@ rtdbData:
     - /data
   command: echo Data Volume for rethinkdb
 
-mq:
-  image: rabbitmq:3.5.4-management
+#mq:
+  # image: rabbitmq:3.5.4-management
   # If you need to manually set the hostname, here is how:
   # environment:
   # - RABBITMQ_NODENAME=my-rabbit
-  ports:
-   - "5672:5672"
-   - "15672:15672"
+  #ports:
+  # - "5672:5672"
+  # - "15672:15672"
 
