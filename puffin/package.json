@@ -28,6 +28,7 @@
     "run-sequence": "^1.1.0"
   },
   "dependencies": {
+    "amqp": "^0.2.4",
     "colors": "^1.1.0",
     "confidence": "^1.1.0",
     "glue": "^2.0.0",

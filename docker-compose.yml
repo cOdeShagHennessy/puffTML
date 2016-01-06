@@ -2,7 +2,7 @@
 # Docker containers
 #
 # Tuned for development
-# General patterns: 
+# General patterns:
 #  - Set build directory to microservice root
 #  - Set env variable so Confidence loads docker environment
 #  - mount host source code in container so latest source is used
@@ -46,22 +46,22 @@ redis:
   volumes:
   - /data/redis:/data
 
-rethinkdb:
-  image: rethinkdb
-  ports:
-  - "8081:8080"
-  - "28015:28015"
-  - "29015:29015"
-  volumes_from:
-    - rtdbData
+# rethinkdb:
+#   image: rethinkdb
+#   ports:
+#   - "8081:8080"
+#   - "28015:28015"
+#   - "29015:29015"
+#   volumes_from:
+#     - rtdbData
 
 # It is recommended to use a separate container for data volumes.
 # This provides some benefits, for e.g., the db container can be upgraded without affecting the data
-rtdbData:
-  image: busybox
-  volumes:
-    - /data
-  command: echo Data Volume for rethinkdb
+# rtdbData:
+#   image: busybox
+#   volumes:
+#     - /data
+#   command: echo Data Volume for rethinkdb
 
 #mq:
   # image: rabbitmq:3.5.4-management
@@ -71,4 +71,3 @@ rtdbData:
   #ports:
   # - "5672:5672"
   # - "15672:15672"
-
