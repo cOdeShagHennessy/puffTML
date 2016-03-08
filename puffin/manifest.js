@@ -35,7 +35,7 @@ module.exports = function (Config) {
             },
             './apis/puffapi': [{
 				routes: {
-					prefix: '/puffapi'
+					prefix: '/crud'
 				}
 			}],
 			//<insert new microapi above this line>
@@ -90,4 +90,3 @@ module.exports = function (Config) {
 
     return module;
 };
-

@@ -6,17 +6,17 @@ process.on('uncaughtException', function (err) {
 });
 
 var microConfig = {
-    name:             'pufftml-puffin',
-    desc:             'pufftml puffin microservice',
+    name:             'intentransform-memberdomain',
+    desc:             'intentransform memberdomain microservice',
     comment:          "This document describes the microservice being deployed to elastic beanstalk. It should be created by the microservice developer at the time they wish to begin deploying this microservice to run on aws elasticbeanstalk.",
     region:           "us-east-1",
     elasticbeanstalk: {
-        ebAppName: 'pufftml-puffin',
-        ebAppDesc: 'pufftml puffin API',
-        ebEnvName: 'pufftmlPuffin-dev'
+        ebAppName: 'intentransform-memberdomain',
+        ebAppDesc: 'intentransform memberdomain API',
+        ebEnvName: 'intentransformMemberdomain-dev'
     },
     "s3":             {
-        "bucket": "pufftmlPuffinApi"
+        "bucket": "intentransformMemberdomainApi"
     }
 };
 
@@ -51,6 +51,7 @@ var knownOptions = {
     default: {mode: 'patch'}
 };
 var options = minimist(process.argv.slice(2), knownOptions);
+console.log("options: " + JSON.stringify(options));
 //
 function getPackageJsonVersion() {
     //We parse the json file instead of using require because require caches multiple calls so the version number won't be updated
@@ -75,7 +76,7 @@ stage_sources.push('../samples/**/*');
 
 gulp.task('stage', getTask('stage-release', {
     sources:    stage_sources,
-    releaseDir: releasesDir + "/" + getPackageJsonVersion() + "/puffin"
+    releaseDir: releasesDir + "/" + getPackageJsonVersion() + "/memberdomain"
 }, function (done) {
     plugins.util.log(plugins.util.colors.green.bgBlack('[GULP] stage files done'));
     done();
@@ -83,7 +84,7 @@ gulp.task('stage', getTask('stage-release', {
 
 gulp.task('package', getTask('package-release', {
     releaseDir:  releasesDir + "/" + getPackageJsonVersion(),
-    packageName: "puffin" + getPackageJsonVersion() + ".zip",
+    packageName: "memberdomain" + getPackageJsonVersion() + ".zip",
     outputDir:   releasesDir
 }, function (done) {
     done();
@@ -109,6 +110,22 @@ gulp.task('default', function (done) {
     Logger.debug('[GULP] default');
     done();
 });
+
+// var dportsh = plugins.shell.task([
+//       'DPORT="$(sh dport.sh $(basename $PWD) 8000)'
+//     ]);
+  // exec('DPORT="$(sh dport.sh $(basename $PWD) 8000) & echo this"', function (err, stdout, stderr) {
+// var exec = require('child_process').exec;
+//
+// gulp.task('task1', function (cb) {
+//   exec('DPORT="$(sh dport.sh $(basename $PWD) 8000)"', function (err, stdout, stderr) {
+//      console.log(stdout);
+//      console.log(stderr);
+//     cb(err);
+//   });
+// });
+
+
 
 gulp.task('rep', function (done) {
   console.log("dip="+options.dip);

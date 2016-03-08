@@ -23,6 +23,8 @@
     "code": "^1.4.0",
     "gulp": "^3.8.11",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace-task": "^0.11.0",
     "lab": "^5.8.1",
     "minimist": "^1.1.1",
     "run-sequence": "^1.1.0"
