@@ -2,9 +2,9 @@ var Joi = require('joi');
 var use = require('rekuire');
 var Logger = use('twiglet')(process.env.DEBUG_LEVEL || 'info', process.env.LOG_STYLE || '');
 var puffapiDDL = use('apis/puffapi/ddl')();
-//    
+//
 var storage = use('apis/puffapi/redisStore')();
-//   
+//
 
 module.exports = {
     description: "Create a new puffapi",
@@ -59,7 +59,7 @@ module.exports = {
 //            console.log("called back")
 //        });
         // Storage
-        //    
+        //
         var redisClient = request.server.plugins['hapi-redis'].client;
         storage.store(redisClient, request.params, request.payload, function (data, err) {
             if (err) {
@@ -70,10 +70,12 @@ module.exports = {
                 Logger.debug("find returned %s", data);
                 reply(request.payload).code(200);
             }
-            else
+            else {
+                Logger.debug("created ", data);
                 reply({uid:data.uid,sample:data.sample}).created("/" + data.uid);
+            }
         });
-        
+
         },
         response: { schema: puffapiDDL.schema }
 } ;
