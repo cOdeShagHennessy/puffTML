@@ -1,0 +1,64 @@
+#!/bin/bash
+# set -euo pipefail
+# IFS=$'\n\t'
+
+alias drunit="docker run -it --rm  -w /app -v '$PWD':/app -u $(id -u):$(id -g)"
+BASE=$(basename $PWD)
+alias dunit="docker run -it -d  -w /app -v '$PWD':/app -u $(id -u):$(id -g)"
+#BASE=$(basename $PWD)
+alias dnode='drunit -P --name $(basename $PWD) working-node-image:test.4.2.4'
+alias dtest='dunit -P --name $(basename $PWD) working-node-image:test.4.2.4'
+
+# set -o nounset
+# set -o errexit
+function resolvePort() {
+  if [ $# -eq 0 ]; then
+   echo ' Failed - Not enough arguments, please pass container name '
+   return
+   #exit 1
+  fi
+  # 	True of the length if "STRING" is zero.
+  if  [  -z $1  ] ; then
+   echo ' Failed - Not enough arguments, please pass exposed port'
+   return
+   #exit 1
+  fi
+  local container=$1
+  local exposedPort=$2
+  local port=$(docker inspect --format='{{range $p, $conf := .NetworkSettings.Ports}}{{if eq $p "'$exposedPort'/tcp"}}{{(index $conf 0).HostPort}}{{end}} {{end}}' $container)
+  echo $port
+  return $port
+}
+
+#alias dport='resolvePort $BASE'
+
+#alias dlgulp='gulp prep --dport $(sh dport.sh $(basename $PWD) 9080) --dip $(docker-machine ip default)'
+#alias dgulp='gulp prep --dport 9080 --dip 192.168.99.100'
+
+function newmanTests() {
+  if [ $# -eq 0 ]; then
+   echo ' Failed - Not enough arguments, please pass container name '
+   return
+   #exit 1
+  fi
+  # 	True of the length if "STRING" is zero.
+  if  [  -z $1  ] ; then
+   echo ' Failed - Not enough arguments, please pass exposed port'
+   return
+   #exit 1
+  fi
+  # local container=$1
+  # local exposedPort=$2
+  dtest npm start
+  local BASENAME=$(basename $PWD)
+  local DOCKPORT=$(resolvePort $BASENAME 9080)
+  local DOCKIP=$(docker-machine ip default)
+  echo 'BASENAME=' $BASENAME
+  echo 'DOCKPORT=' $DOCKPORT
+  echo 'DOCKIP=' $DOCKIP
+  gulp prep --dport $DOCKPORT --dip $DOCKIP
+  newman -c ./api_tests/domain/member/postman_tests.json -e test.postman.env.json -d ./api_tests/domain/member/data.json -o puffin-out.json
+  docker stop puffin
+  docker rm puffin
+}
+# alias dnewman='dgulp && dtest npm start && newman -c ./api_tests/domain/member/postman_tests.json -e test.postman.env.json -d ./api_tests/domain/member/data.json -o puffin-out.json && docker stop puffin && docker rm puffin'

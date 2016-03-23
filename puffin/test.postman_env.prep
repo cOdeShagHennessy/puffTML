@@ -1,0 +1,37 @@
+{
+	"id": "9c57180c-c82b-cb17-c4f3-4a49178dc106",
+	"name": "test",
+	"values": [
+		{
+			"key": "uid",
+			"value": "714",
+			"type": "text",
+			"name": "uid",
+			"enabled": true
+		},
+		{
+			"key": "sample_val",
+			"value": "abcdefg",
+			"type": "text",
+			"name": "sample_val",
+			"enabled": true
+		},
+		{
+			"key": "ip",
+			"value": "@@dip",
+			"type": "text",
+			"name": "ip",
+			"enabled": true
+		},
+		{
+			"key": "port",
+			"value": "@@dport" ,
+			"type": "text",
+			"name": "port",
+			"enabled": true
+		}
+	],
+	"timestamp": 1450899835924,
+	"synced": false,
+	"syncedFilename": ""
+}

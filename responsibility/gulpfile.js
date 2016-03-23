@@ -6,25 +6,23 @@ process.on('uncaughtException', function (err) {
 });
 
 var microConfig = {
-    name:             'pufftml-puffin',
-    desc:             'pufftml puffin microservice',
+    name:             'pufftml-responsibility',
+    desc:             'pufftml responsibility microservice',
     comment:          "This document describes the microservice being deployed to elastic beanstalk. It should be created by the microservice developer at the time they wish to begin deploying this microservice to run on aws elasticbeanstalk.",
     region:           "us-east-1",
     elasticbeanstalk: {
-        ebAppName: 'pufftml-puffin',
-        ebAppDesc: 'pufftml puffin API',
-        ebEnvName: 'pufftmlPuffin-dev'
+        ebAppName: 'pufftml-responsibility',
+        ebAppDesc: 'pufftml responsibility API',
+        ebEnvName: 'pufftmlResponsibility-dev'
     },
     "s3":             {
-        "bucket": "pufftmlPuffinApi"
+        "bucket": "pufftmlResponsibilityApi"
     }
 };
 
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var minimist = require('minimist');
-var replace = require('gulp-replace-task')
-var rename = require('gulp-rename')
 //
 var sipsDir = '../sips/';
 var plugins = require('gulp-load-plugins')({
@@ -75,7 +73,7 @@ stage_sources.push('../samples/**/*');
 
 gulp.task('stage', getTask('stage-release', {
     sources:    stage_sources,
-    releaseDir: releasesDir + "/" + getPackageJsonVersion() + "/puffin"
+    releaseDir: releasesDir + "/" + getPackageJsonVersion() + "/responsibility"
 }, function (done) {
     plugins.util.log(plugins.util.colors.green.bgBlack('[GULP] stage files done'));
     done();
@@ -83,7 +81,7 @@ gulp.task('stage', getTask('stage-release', {
 
 gulp.task('package', getTask('package-release', {
     releaseDir:  releasesDir + "/" + getPackageJsonVersion(),
-    packageName: "puffin" + getPackageJsonVersion() + ".zip",
+    packageName: "responsibility" + getPackageJsonVersion() + ".zip",
     outputDir:   releasesDir
 }, function (done) {
     done();
@@ -110,28 +108,3 @@ gulp.task('default', function (done) {
     done();
 });
 
-gulp.task('rep', function (done) {
-  console.log("dip="+options.dip);
-  console.log("dport="+options.dport);
-  gulp.src('test.postman_env.prep')
-    .pipe(replace({
-      patterns: [
-        {
-          match: 'dip',
-          replacement:options.dip|| 'localhost'
-        },
-        {
-          match: 'dport',
-          replacement:options.dport || 7000
-        }
-      ]
-    }))
-    .pipe(rename('test.postman.env.json'))
-    .pipe(gulp.dest('.'));
-    done();
-});
-
-gulp.task('prep', ['rep'], function (done) {
-    Logger.debug('[GULP] prep');
-    done();
-});

@@ -12,7 +12,7 @@ module.exports.register = function (plugin, options, next) {
 //    plugin.auth.strategy('test', 'custom', true);
 
     /*
-     * puffapi Endpoints
+     * crud Endpoints
      */
     /**
      * Index route needed to be recognized by swagger
@@ -23,7 +23,7 @@ module.exports.register = function (plugin, options, next) {
         path:   '/ping',
         config: {
             //auth:'test',
-            description: "Returns ping response for puffapi",
+            description: "Returns ping response for crud",
             notes:       "Returns a ping response",
             tags:        ['api', 'ping', 'logs'],
             handler:     function (request, reply) {
@@ -41,7 +41,7 @@ module.exports.register = function (plugin, options, next) {
 
     plugin.route({
         method: 'PUT',
-        path:   '/{uid}',
+        path:   '/{id}',
         config: require('./put')
     });
 
@@ -53,8 +53,14 @@ module.exports.register = function (plugin, options, next) {
 
     plugin.route({
         method: 'GET',
-        path:   '/{uid}',
+        path:   '/{id}',
         config: require('./get')
+    });
+
+    plugin.route({
+        method: 'DELETE',
+        path:   '/{id}',
+        config: require('./delete')
     });
     plugin.route({
         method: 'GET',

@@ -1,0 +1,17 @@
+
+# docker-compose snippet for responsibility
+responsibility:
+  build: ./responsibility
+  dockerfile: Dockerfile.frombase
+  command: nodemon server.js
+  environment:
+   - DEBUG_LEVEL=debug
+   - NODE_ENV=local_docker
+   - LOG_STYE=default
+  ports:
+   - "10001:10001"
+  volumes:
+   - ./responsibility:/pufftml/responsibility
+  links:
+   - redis 
+#
