@@ -10,7 +10,8 @@ module.exports = function (Config) {
         },
         connections: [{
             port: Config.get('port'),
-            labels: ['environment']
+            labels: ['environment'],
+            routes: { cors: { origin: ['*'] } }
         }],
         plugins: {
             'good': {
@@ -49,4 +50,3 @@ module.exports = function (Config) {
 
     return module;
 };
-
