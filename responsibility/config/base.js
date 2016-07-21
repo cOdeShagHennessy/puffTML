@@ -21,7 +21,7 @@ module.exports = function (microstack) {
         // This setting assumes the use of docker to host a redis instance locally
         // This setting can be overridden with overrides or the
         // recommended approach is to replace this with a nanostack component, i.e. ns_Redis
-        redisHost: '192.168.99.100' //cache.redisHost// 
+        redisHost: process.env.REDIS_HOST //cache.redisHost// 
     };
 
     var overrides = use('config/overrides');

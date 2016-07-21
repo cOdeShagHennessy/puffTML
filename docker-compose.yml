@@ -30,6 +30,7 @@ puffin:
    - DEBUG_LEVEL=debug
    - NODE_ENV=local_docker
    - LOG_STYLE=default
+   - REDIS_HOST=10.0.0.241
   ports:
    - 9080:9080
   volumes:
@@ -61,6 +62,7 @@ responsibility:
    - DEBUG_LEVEL=debug
    - NODE_ENV=local_docker
    - LOG_STYLE=default
+   - REDIS_HOST=10.0.0.241
   ports:
    - 10001:10001
   volumes:
